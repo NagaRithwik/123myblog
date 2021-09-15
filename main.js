@@ -3,17 +3,20 @@ objects = [];
 video = "";
 
 function preload(){
-   video = createVideo('video.mp4');
-   video.hide();
+   video = createVideo('video.mp4');  
 }
+
 function setup(){
     canvas = createCanvas(500,400);
     canvas.center();
+    video.hide();
 }
+
 function start(){
     objectDetector=ml5.objectDetector('cocossd',modelLoaded);
     document.getElementById("status").innerHTML = "Status:- Detecting Objects";
 }
+
 function modelLoaded(){
     console.log("Model Loaded!");
     status = true;
@@ -21,6 +24,7 @@ function modelLoaded(){
     video.speed(1);
     video.volume(0);
 }
+
 function gotResults(error , results){
     if(error){
         console.log(error);
@@ -28,6 +32,7 @@ function gotResults(error , results){
     console.log(results);
     objects = results;
 }
+
 function draw(){
    image(video,0,0,500,400)
    if(status != ""){
@@ -38,7 +43,7 @@ function draw(){
 
            fill("red");
            percent=floor(objects[i].confidence * 100);
-           text(objects[i].length + " " + percent + "%" , objects[i].x , objects[i].y);
+           text(objects[i].label + " " + percent + "%" , objects[i].x , objects[i].y);
            noFill();
            stroke("red");
            rect(objects[i].x , objects[i].y , objects[i].width , objects[i].height);
