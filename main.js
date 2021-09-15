@@ -1,4 +1,5 @@
 status = "";
+objects = [];
 video = "";
 
 function preload(){
